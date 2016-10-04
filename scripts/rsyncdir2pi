@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# use this to sync your local directory to raspberrypi
+rsync -aiP $1 pi@192.168.x.x:~/destination-folder
