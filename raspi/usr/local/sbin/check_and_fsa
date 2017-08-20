@@ -3,9 +3,17 @@
 FREE=`df -k --output=avail /home| tail -n1`
 echo $FREE
 
-if [[ $FREE -gt 2097152 ]]; then 
+DIRECTORY=/home/pi/FSA
+
+if [ ! -d "$DIRECTORY" ]; then
+  echo $DIRECTORY "doesn't exist. Exiting gracefully."
+  exit 0
+fi
+
+
+if [[ $FREE -gt 2097152 ]]; then
      # 10G = 10*1024*1024 = 10485760
      # 2G  = 2*1024*1024 = 2097152
-     fsarchiver savefs -A -z5 /home/pi/sda2-root.fsa /dev/sda2
-fi
+     fsarchiver savefs -A -z5 /home/pi/FSA/sda2-root.fsa /dev/sda2
+fi   
 
