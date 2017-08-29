@@ -1,8 +1,5 @@
 #!/bin/bash
 
-FREE=`df -k --output=avail /home| tail -n1`
-echo $FREE
-
 DIRECTORY=/home/pi/FSA
 
 if [ ! -d "$DIRECTORY" ]; then
@@ -11,9 +8,12 @@ if [ ! -d "$DIRECTORY" ]; then
 fi
 
 
-if [[ $FREE -gt 2097152 ]]; then
+FREE=`df -k --output=avail /home| tail -n1`
+echo $FREE
+
+if [[ $FREE -gt 2097152 ]]; then 
      # 10G = 10*1024*1024 = 10485760
      # 2G  = 2*1024*1024 = 2097152
      fsarchiver savefs -A -z5 /home/pi/FSA/sda2-root.fsa /dev/sda2
-fi   
+fi
 
