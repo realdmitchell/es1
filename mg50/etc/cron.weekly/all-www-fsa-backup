@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#43200 is 12 hours
+upSeconds=`cat /proc/uptime`
+upSeconds=${upSeconds%%.*}
+
+if [ "${upSeconds}" -le 43200 ]; then
+   exit 0
+fi
+
+new_dir=`date +%F`
+DIRECTORY=/media/TOSHIBA2TB/root_backups_mg50
+
+if [ ! -d "$DIRECTORY" ]; then
+ # will enter here if $DIRECTORY doesn't exist.
+   exit 0
+fi
+
+cd $DIRECTORY
+mkdir "$new_dir"
+cd "$new_dir"
+
+##First backup GRUB-mbr
+#dd if=/dev/sda of=mbr-backup bs=512 count=1
+lsblk > LSBLK
+
+tar zcf etc.tar.gz -C / etc
+
+fsarchiver -A -s 700 -z7 -j2 savefs sda3-root-centos.fsa /dev/sda3
+#echo "sleeping for 10 seconds"
+sleep 10
+md5sum * | tee MD5SUMS
+
+find /media/TOSHIBA2TB/root_backups_mg50 -mtime +29 -exec rm -r '{}' \;
+
+exit 0
