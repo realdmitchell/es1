@@ -13,6 +13,7 @@ fi
 DIRECTORY=/home/mg44_fsa
 if [ ! -d "$DIRECTORY" ]; then
    echo $DIRECTORY "doesn't exist. Exiting gracefully."
+   echo "/home/mg44_fsa not mounted" | mail -s "mg44 fsa failed" root
    exit 0
 fi
 
