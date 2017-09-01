@@ -18,17 +18,18 @@ current_date=`date +%F`
 if [ -d /localbackup/home ]; then
 	    #echo "HOME is mounted"
 	    rsync --log-file=/tmp/$current_date"-rsync_HOME.log" -ivPHAaXx --numeric-ids --progress --del /home/ /localbackup/home/  > /dev/null 2>&1
-       cat /tmp/$current_date"-rsync_HOME.log" | mail -s "mg44 rsync_HOME" root < /dev/null
+       cat /tmp/$current_date"-rsync_HOME.log" | mail -s "mg44 rsync_HOME" root
 	else
 	    touch /tmp/$current_date"-rsync_HOME-error.log"
-	    #echo "drive not mounted"
+	    echo "/localbackup/home not mounted" | mail -s "mg44 rsync_HOME" root
 fi
 if [ -d /localbackup/vbox ]; then
 	    #echo "vbox is mounted"
 	    rsync --log-file=/tmp/$current_date"-rsync_VBOX.log" -ivPHAaXx --numeric-ids --progress --del /vbox/ /localbackup/vbox/  > /dev/null 2>&1
-       cat /tmp/$current_date"-rsync_VBOX.log" | mail -s "mg44 rsync_VBOX" root < /dev/null
+       cat /tmp/$current_date"-rsync_VBOX.log" | mail -s "mg44 rsync_HOME" root
 	else
 	    touch /tmp/$current_date"-rsync_VBOX-error.log"
+	    echo "/localbackup/vbox not mounted" | mail -s "mg44 rsync_VBOX" root
 	    #echo "drive not mounted"
 fi
 rm $lock_file
