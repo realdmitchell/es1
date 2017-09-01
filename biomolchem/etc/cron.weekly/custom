@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#43200 is 12 hours
+upSeconds=`cat /proc/uptime`
+upSeconds=${upSeconds%%.*}
+
+if [ "${upSeconds}" -le 43200 ]; then
+   exit 0
+fi
+
+rm -f /var/log/kern.log.2.gz
+rm -f /var/log/dpkg.log.2.gz
+rm -f /var/log/auth.log.2.gz
+rm -f /var/log/lightdm/*.gz
+
+LANG=en_US
+LC_TYPE=en_US
+
+/usr/local/sbin/certbot-auto renew
+
+exit 0
+
