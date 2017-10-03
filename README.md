@@ -1,3 +1,11 @@
+
+# Amazon
+EUR 72,49 https://www.amazon.de/Geox-CARNABY-Schnürhalbschuhe-Schwarz-BLACKC9999/dp/B00OJZJLNE
+
+EUR 59,35 https://www.amazon.de/Geox-DUBLIN-Schnürhalbschuhe-Schwarz-BLACKC9999/dp/B00BMMJTB6
+
+
+
 # es1
 Contains script and dot files for my es1 and raspi
 
