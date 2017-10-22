@@ -1,4 +1,4 @@
-root@raspberrypi:~# cat .mailrc 
+set from="Raspberry Pi <sender@example.com>"
 set smtp="smtp.gmail.com:587"  
 set smtp-use-starttls  
 set smtp-auth=login  
