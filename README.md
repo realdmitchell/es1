@@ -1,6 +1,48 @@
 # LXD
 How to setup LXD
 
+```
+sudo apt-get install bridge-utils
+sudo lxd init
+Name of the storage backend to use (dir or zfs): dir
+Would you like LXD to be available over the network (yes/no)? yes
+Do you want to configure the LXD bridge (yes/no)? yes
+Would you like to setup a network bridge for LXD containers now? no  
+Do you want to use an existing bridge? yes  
+Bridge interface name:  br0
+```
+Setup enable packet forwarding in file `/etc/sysctl.conf` for IPv4 on the LXD host
+```
+net.ipv4.ip_forward=1
+```
+Run `sudo sysctl -p` or `reboot`. Now change the adapt ths file describes the network `/etc/network/interfaces` in host for static to bridge `br0` changes
+
+```
+#This file is /etc/network/interfaces
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto br0
+iface br0 inet static
+	address 1.2.3.111
+	netmask 255.255.255.240
+	network 1.2.3.112
+	broadcast 1.2.3.127
+	gateway 1.2.3.126
+	# dns-* options are implemented by the resolvconf package, if installed
+	dns-nameservers 8.8.8.8 4.4.4.4
+
+##  bridge options
+bridge_ports enp2s0  
+## auto enp2s0
+iface enp2s0 inet manual
+```
+
+
 
 # Tips
 for enabling softkeys in android phone just add
