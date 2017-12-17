@@ -1,5 +1,6 @@
-# es1
-Contains script and dot files for my es1 and raspi
+# LXD
+How to setup LXD
+
 
 # Tips
 for enabling softkeys in android phone just add
@@ -81,3 +82,6 @@ function finddir()
 }
 
 ```
+
+
+
