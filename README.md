@@ -41,6 +41,91 @@ bridge_ports enp2s0
 ## auto enp2s0
 iface enp2s0 inet manual
 ```
+Verify before restarting network as you lose connection `sudo service networking restart`. If everything was OK, you will see `br0´, `eth0 or enp2s0` and `lo` when you run `ifconfig` like this (redacted partially)
+```
+br0       Link encap:Ethernet  HWaddr 00:
+          collisions:0 txqueuelen:1000 
+          RX bytes:417554630 (417.5 MB)  TX bytes:8047958 (8.0 MB)
+
+enp2s0    Link encap:Ethernet  HWaddr 00:
+          RX bytes:744425912 (744.4 MB)  TX bytes:14523858 (14.5 MB)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          RX bytes:11840 (11.8 KB)  TX bytes:11840 (11.8 KB)
+```
+IIRC, `lxc profile show default ` shows
+```
+config: {}
+description: Default LXD profile
+devices:
+  eth0:
+    name: eth0
+    nictype: bridged
+    parent: br0
+    type: nic
+name: default
+used_by: []
+```
+Time to create, launch containers. The first time it takes long to download, may be unzip and launch containers.
+```sudo lxc launch ubuntu:xenial host222xenial
+Creating host222xenial
+Starting host222xenial
+```
+Let see what is running
+```
+lxc list
++---------------+---------+--------------------------------+------+------------+-----------+
+|     NAME      |  STATE  |              IPV4              | IPV6 |    TYPE    | SNAPSHOTS |
++---------------+---------+--------------------------------+------+------------+-----------+
+| host222xenial | RUNNING |                                |      | PERSISTENT | 0         |
++---------------+---------+--------------------------------+------+------------+-----------+
+```
+As you see above it did not get a IPV4 address. To do that `sudo lxc exec host222xenial bash` will log you inside `host222xenial`. Do not edit `/etc/network/interfaces` but edit `/etc/network/interfaces.d/50-cloud-init.cfg`
+```
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+
+```
+Change it to give static ip, gateway, DNS. For some reason, the containers always have eth0 and not the persistent enp* naming scheme. Verify with a `dmesg` if needed.
+
+```
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface of the container
+auto eth0
+iface eth0 inet static
+   address 1.2.3.222
+   netmask 255.255.255.240
+   network 1.2.3.112
+   broadcast 1.2.3.127
+   gateway 1.2.3.126
+   # dns-* options are implemented by the resolvconf package, if installed
+   dns-nameservers 8.8.8.8 4.4.4.4
+``` 
+Either restart container or may be you can reload networking `sudo lxc restart  host222xenial`
+
+Let see what is running
+```
+lxc list
++---------------+---------+--------------------------------+------+------------+-----------+
+|     NAME      |  STATE  |              IPV4              | IPV6 |    TYPE    | SNAPSHOTS |
++---------------+---------+--------------------------------+------+------------+-----------+
+| host222xenial | RUNNING |       1.2.3.222                |      | PERSISTENT | 0         |
++---------------+---------+--------------------------------+------+------------+-----------+
+```
+
+To rename host use `lxc move host222xenial host444xenial`
+To launch centos `sudo lxc launch images:centos/7/amd64 centos333`
+To launch trusty `sudo lxc launch ubuntu:trusty host222`
+If you need `screen` inside a container then use
+`lxc exec host222xenial -- sh -c "exec >/dev/tty 2>/dev/tty </dev/tty && /usr/bin/screen -s /bin/bash"`
+
 
 
 
