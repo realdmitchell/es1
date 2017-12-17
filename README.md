@@ -121,9 +121,13 @@ lxc list
 ```
 
 To rename host use `lxc move host222xenial host444xenial`
+
 To launch centos `sudo lxc launch images:centos/7/amd64 centos333`
+
 To launch trusty `sudo lxc launch ubuntu:trusty host222`
+
 If you need `screen` inside a container then use
+
 `lxc exec host222xenial -- sh -c "exec >/dev/tty 2>/dev/tty </dev/tty && /usr/bin/screen -s /bin/bash"`
 
 
