@@ -10,3 +10,8 @@ grep -r --color=ALWAYS "http:" * | more
 find . -iname "*.xml" -print0 | xargs -0 -I % perl -pi -e 's/http\:/https\:/g'  %
 find . -iname "*py"   -print0 | xargs -0 -I % perl -pi -e 's/http\:/https\:/g'  %
 
+
+# how to email setup
+apt-get purge bsd-mailx
+apt-get install heirloom-mailx
+see /root/.mailrc
