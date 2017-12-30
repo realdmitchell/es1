@@ -15,3 +15,5 @@ find . -iname "*py"   -print0 | xargs -0 -I % perl -pi -e 's/http\:/https\:/g'  
 apt-get purge bsd-mailx
 apt-get install heirloom-mailx
 see /root/.mailrc
+## Test email 
+echo This is a test | mail -v -s "A mail from your pi" destination@example.com
