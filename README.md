@@ -1,6 +1,6 @@
 
 # Grub reinstallation mainly on ubuntu.
-Boot with sysrescuecd. If the root is at sda2 then do the following
+Boot with sysrescuecd. If the root is at `sda2` then do the following
 ```
 mkdir /mnt/2
 mount /dev/sda2 /mnt/2
