@@ -1,6 +1,8 @@
 
 # Block ads
+
 http://someonewhocares.org/hosts/
+
 http://pgl.yoyo.org/adservers/serverlist.php?hostformat=dnsmasq-server&showintro=1&mimetype=plaintext
 
 # Grub reinstallation mainly on ubuntu.
