@@ -1,4 +1,7 @@
 
+# Block ads
+http://someonewhocares.org/hosts/
+
 # Grub reinstallation mainly on ubuntu.
 Boot with sysrescuecd. If the root is at `sda2` then do the following
 ```
