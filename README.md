@@ -1,3 +1,12 @@
+
+
+# Clone your favorite OS
+```
+sfdisk -d /dev/sda
+sfdisk -d /dev/sda > /tmp/backup-partition-file-sda.bak
+```
+To restore to a new drive
+
 # LXD
 How to setup LXD
 
