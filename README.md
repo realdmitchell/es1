@@ -18,7 +18,6 @@ If you need to backup bootsector/MBR. I do not know why and which command works 
 ```
 dd if=/dev/sda of=/dev/sdb bs=512 count=1
 dd if=/dev/sda of=/dev/sdb bs=512 count=63
-
 ```
 
 
