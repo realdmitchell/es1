@@ -1,4 +1,28 @@
 
+# Grub reinstallation mainly on ubuntu.
+Boot with sysrescuecd. If the root is at sda2 then do the following
+```
+mkdir /mnt/2
+mount /dev/sda2 /mnt/2
+mount -o bind /dev /mnt/2/dev
+mount -o bind /sys /mnt/2/sys
+mount -t proc /proc /mnt/2/proc
+```
+Now you should be able to
+```
+chroot /mnt/2 bash
+```
+If there was no bash installed on the 'failed' OS, the use
+```
+chroot /mnt/2 /sbin/sh
+```
+Now time to reinstall grub.
+```
+grub-install /dev/sda
+```
+You can try a `update-grub`
+
+
 
 # Clone your favorite OS
 ```
