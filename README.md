@@ -6,6 +6,21 @@ sfdisk -d /dev/sda
 sfdisk -d /dev/sda > /tmp/backup-partition-file-sda.bak
 ```
 To restore to a new drive
+```
+sfdisk /dev/sdb < /tmp/backup-partition-file-sda.bak
+```
+To directly copy to a new disk
+```
+sfdisk -d /dev/sda | sfdisk /dev/sdb
+```
+If you need to backup bootsector/MBR. I do not know why and which command works but running these sucessively made it work. This works only if both disks have same size and partitions. (May be they can be smaller?)
+
+```
+dd if=/dev/sda of=/dev/sdb bs=512 count=1
+dd if=/dev/sda of=/dev/sdb bs=512 count=63
+
+```
+
 
 # LXD
 How to setup LXD
