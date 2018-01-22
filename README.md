@@ -5,6 +5,8 @@ http://someonewhocares.org/hosts/
 
 http://pgl.yoyo.org/adservers/serverlist.php?hostformat=dnsmasq-server&showintro=1&mimetype=plaintext
 
+https://github.com/StevenBlack/hosts
+
 # Grub reinstallation mainly on ubuntu.
 Boot with sysrescuecd. If the root is at `sda2` then do the following
 ```
