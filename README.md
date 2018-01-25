@@ -1,3 +1,58 @@
+
+# Block ads
+
+http://someonewhocares.org/hosts/
+
+http://pgl.yoyo.org/adservers/serverlist.php?hostformat=dnsmasq-server&showintro=1&mimetype=plaintext
+
+https://github.com/StevenBlack/hosts
+
+# Grub reinstallation mainly on ubuntu.
+Boot with sysrescuecd. If the root is at `sda2` then do the following
+```
+mkdir /mnt/2
+mount /dev/sda2 /mnt/2
+mount -o bind /dev /mnt/2/dev
+mount -o bind /sys /mnt/2/sys
+mount -t proc /proc /mnt/2/proc
+```
+Now you should be able to
+```
+chroot /mnt/2 bash
+```
+If there was no bash installed on the 'failed' OS, the use
+```
+chroot /mnt/2 /sbin/sh
+```
+Now time to reinstall grub.
+```
+grub-install /dev/sda
+```
+You can try a `update-grub`
+
+
+
+# Clone your favorite OS
+```
+sfdisk -d /dev/sda
+sfdisk -d /dev/sda > /tmp/backup-partition-file-sda.bak
+```
+To restore to a new drive
+```
+sfdisk /dev/sdb < /tmp/backup-partition-file-sda.bak
+```
+To directly copy to a new disk
+```
+sfdisk -d /dev/sda | sfdisk /dev/sdb
+```
+If you need to backup bootsector/MBR. I do not know why and which command works but running these sucessively made it work. This works only if both disks have same size and partitions. (May be they can be smaller?)
+
+```
+dd if=/dev/sda of=/dev/sdb bs=512 count=1
+dd if=/dev/sda of=/dev/sdb bs=512 count=63
+```
+
+
 # LXD
 How to setup LXD
 
