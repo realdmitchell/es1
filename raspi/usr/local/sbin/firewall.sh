@@ -20,6 +20,8 @@ iptables -A INPUT -s 127.0.0.0/8 -d 127.0.0.0/8 -i lo -j ACCEPT
 # Uncomment this line to allow incoming SSH/SCP conections to this machine,
 # for traffic from 192.168.1.1 (you can use also use a network definition as
 # source like 192.168.1.0/24).
+iptables -A INPUT -s 192.168.1.0/24 -p tcp --dport 8080 -m state --state NEW -j ACCEPT
+iptables -A INPUT -s 192.168.1.0/24 -p tcp --dport 2049 -m state --state NEW -j ACCEPT
 iptables -A INPUT -s 192.168.1.0/24 -p tcp --dport 2202 -m state --state NEW -j ACCEPT
 iptables -A INPUT -s 192.168.1.0/24 -p udp --dport  137 -m state --state NEW -j ACCEPT
 iptables -A INPUT -s 192.168.1.0/24 -p udp --dport  138 -m state --state NEW -j ACCEPT
