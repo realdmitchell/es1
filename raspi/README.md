@@ -1,3 +1,28 @@
+# journal
+
+```
+sudo journalctl _COMM=sshd --since=today
+
+sudo journalctl -n 10
+
+sudo journalctl -f
+
+sudo  journalctl /dev/sda
+```
+
+# autofs
+
+```sudo apt-get install nfs-common nfs-server```
+
+Edit ```/etc/exports```
+
+```
+sudo service nfs-kernel-server status
+sudo exportfs -ra
+sudo showmount -e 192.168.1.10
+```
+
+
 ## config and tips for raspi
 
 For ffmpeg see this https://squarepenguin.co.uk/forums/thread-964.html
@@ -6,10 +31,11 @@ sudo dpkg -i ffmpeg_3.1.1-1_armhf.deb
 
 # Convert all addon stuff to https
 
+```
 grep -r --color=ALWAYS "http:" * | more
 find . -iname "*.xml" -print0 | xargs -0 -I % perl -pi -e 's/http\:/https\:/g'  %
 find . -iname "*py"   -print0 | xargs -0 -I % perl -pi -e 's/http\:/https\:/g'  %
-
+```
 
 # how to email setup
 ```apt-get purge bsd-mailx
