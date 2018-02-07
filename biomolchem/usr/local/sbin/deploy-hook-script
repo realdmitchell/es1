@@ -3,6 +3,6 @@
 set -e
 
 for domain in $RENEWED_DOMAINS; do
-   echo "certbot updated $domain" | mail -s "certbot updated $domain " root
+   echo "Let's Encrypt certificate updated for $domain" | mail -s "Let's Encrypt certificate updated for $domain " root
 done
 
