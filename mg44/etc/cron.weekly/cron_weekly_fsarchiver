@@ -1,13 +1,14 @@
 #!/bin/bash
 
 new_dir=`date +%F`
-DIRECTORY=/home/fsarchiver/"$new_dir"
+DIRECTORY=/mnt/localbackup/fsarchiver/"$new_dir"
+
 #43200 is 12 hours
 #10800 is 3 hours
 upSeconds=`cat /proc/uptime`
 upSeconds=${upSeconds%%.*}
 
-if [ "${upSeconds}" -le 10800 ]; then
+if [ "${upSeconds}" -le 43200 ]; then
    exit 0
 fi
 
@@ -37,7 +38,7 @@ fsarchiver -A -s 700 -j1 savefs root.fsa $ROOT_PARTITION > /dev/null 2>&1
 
 if [ $? -eq 0 ]; then
     #echo OK
-    echo "SUCCESS cron.weekly.fsarchiver in $HOSTNAME success." | mail -s "SUCCESS cron.weekly.fsarchiver in $HOSTNAME success" root
+    echo "SUCCESS cron.weekly.fsarchiver in $HOSTNAME successful." | mail -s "SUCCESS cron.weekly.fsarchiver in $HOSTNAME" root
 else
     #echo FAIL
     echo "ALERT cron.weekly.fsarchiver in $HOSTNAME failed" | mail -s "ALERT cron.weekly.fsarchiver in $HOSTNAME failed" root
@@ -45,9 +46,8 @@ fi
 
 #echo "sleeping for 10 seconds"
 sleep 10
-md5sum * | tee MD5SUMS
-find /mnt/localbackup/root_backups_mg50 -mtime +39 -exec rm -r '{}' \;
+md5sum * > MD5SUMS
+find /mnt/localbackup/fsarchiver -mtime +39 -exec rm -r '{}' \;
 rm $lock_file
 
 exit 0
-
