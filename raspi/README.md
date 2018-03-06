@@ -1,6 +1,15 @@
 # journal
 
 ```
+apt-get purge inputlirc
+service lirc stop
+service lirc start
+```
+
+
+# journal
+
+```
 sudo journalctl _COMM=sshd --since=today
 
 sudo journalctl -n 10
