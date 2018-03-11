@@ -1,3 +1,43 @@
+# Firefox
+ from https://news.ycombinator.com/item?id=16497642
+	
+For privacy, on a linux box are there any downsides to simply creating one or more extra accounts, and running Firefox in them for privacy ('DISPLAY=:0 firefox')?. I use this approach to set up firefox as I like it on a spare account, then copy '.mozilla' to '.mozilla-base'. Then it's just a simple case of 'su -l guest' and (via a script) 'rm -fr ~/.mozilla; cp -a ~/.mozilla_base .mozilla; DISPLAY=:0 firefox; rm -fr ~/.mozilla' (actually the script deletes the local cache as well).
+Net effect is that firefox starts exactly as I like, but forgets everything that happened in the session ('groundhog-day mode').
+
+Edit: added 'su -l' step.
+
+Edit: As an adendum, note that this technique can be extended to the complete 'guest' accounts as well, e.g. 'cd /home; rm -fr guest; cp -a guest.base guest; su -l guest'; the entire 'guest' account is then 'groundhog-dayed'.
+
+```
+  #!/bin/sh
+  #
+  export DISPLAY=:0
+  # Set up clean copy
+  cd ~
+  rm -fr .mozilla
+  cp -a .mozilla_base .mozilla
+  cd - > /dev/null
+  #
+  /usr/local/bin/firefox $@
+  #
+  echo "Holding...."
+  sleep 2
+  echo "Cleaning...."
+  # Clean out junk (so we start clean next time)
+  cd ~
+  rm -fr .mozilla .cache/mozilla*
+  rm -fr .adobe
+  rm -fr .macromedia
+  cd - > /dev/null
+```
+
+alternate option
+
+```
+    firejail --jail /tmp/firefox /usr/local/bin/firefox
+
+```
+
 
 # Block ads
 
