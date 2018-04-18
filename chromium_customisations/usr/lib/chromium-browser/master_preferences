@@ -1,0 +1,35 @@
+{
+  "homepage": "http://www.duckduckgo.com",
+  "homepage_is_newtabpage": true,
+  "browser": {
+    "show_home_button": true
+  },
+  "bookmark_bar": {
+    "show_on_all_tabs": true
+  },
+  "sync_promo": {
+    "show_on_first_run_allowed": false
+  },
+  "distribution": {
+    "import_bookmarks_from_file": "/home/username/bookmarks.html",
+    "import_bookmarks": false,
+    "import_search_engine": true,
+    "ping_delay": 60,
+    "do_not_create_desktop_shortcut": true,
+    "do_not_create_quick_launch_shortcut": true,
+    "do_not_launch_chrome": true,
+    "do_not_register_for_update_launch": true,
+    "make_chrome_default": true,
+    "make_chrome_default_for_user": true,
+    "suppress_first_run_default_browser_prompt": true,
+    "system_level": true,
+    "verbose_logging": true
+  },
+  "first_run_tabs": [
+    "https://wtfismyip.com"
+  ],
+  "sync_promo" : {
+    "show_on_first_run_allowed" : false
+  }
+}
+
