@@ -97,6 +97,37 @@ dd if=/dev/sda of=/dev/sdb bs=512 count=63
 
 
 # LXD
+
+```
+lxc config device set megasyn-vm  root  size 10GB
+lxc config set myn-vm limits.memory 512MB
+lxc config set rea-vm3 limits.cpu 1
+lxc config set rea-vm3 boot.autostart 1
+lxc config set remotus boot.autostart.delay  30
+lxc config set core.trust_password a_long_string_may_be
+lxc config set core.https_address "[::]:8443"
+sudo lxd-p2c https://destination.ip:8443 new-container-name /
+```
+
+Changing your storage pool
+
+```
+lxc storage list
+lxc profile device add default root disk path=/ pool=default
+```
+
+Minimal image
+
+``` 
+lxc remote add --protocol simplestreams ubuntu-minimal https://cloud-images.ubuntu.com/minimal/releases/
+lxc launch ubuntu-minimal:xenial
+lxc launch ubuntu-minimal:xenial -t t2.nano
+
+``` 
+For a list see https://github.com/dustinkirkland/instance-type/blob/master/tab/aws
+
+
+
 How to setup LXD
 
 ```
