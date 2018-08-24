@@ -1,3 +1,60 @@
+#Samba
+
+```
+root@host:~# service smbd restart
+root@host:~# netstat -apn | grep 445
+tcp        0      0 127.0.0.1:445           0.0.0.0:*               LISTEN      13390/smbd      
+tcp        0      0 a.b.c.d:445        0.0.0.0:*               LISTEN      13390/smbd      
+tcp        0      0 10.147.20.1:445         0.0.0.0:*               LISTEN      13390/smbd      
+tcp        0      0 a.b.c.d:445        a.b.c.55:3029       TIME_WAIT   -               
+tcp        0      0 a.b.c.d:445        a.b.c.44:35502      FIN_WAIT2   -               
+tcp        0      0 a.b.c.d:445        a.b.c.55:3031       ESTABLISHED 13395/smbd      
+tcp6       0      0 ::1:445                 :::*                    LISTEN      13390/smbd      
+unix  2      [ ACC ]     STREAM     LISTENING     22445    1/init              /run/snapd.socket
+root@host:~# netstat -apn | grep 445
+tcp        0      0 127.0.0.1:445           0.0.0.0:*               LISTEN      13390/smbd      
+tcp        0      0 a.b.c.d:445        0.0.0.0:*               LISTEN      13390/smbd      
+tcp        0      0 10.147.20.1:445         0.0.0.0:*               LISTEN      13390/smbd      
+tcp        0      0 a.b.c.d:445        a.b.c.55:3029       TIME_WAIT   -               
+tcp        0      0 a.b.c.d:445        a.b.c.44:35502      FIN_WAIT2   -               
+tcp        0      0 a.b.c.d:445        a.b.c.55:3031       ESTABLISHED 13395/smbd      
+tcp6       0      0 ::1:445                 :::*                    LISTEN      13390/smbd      
+unix  2      [ ACC ]     STREAM     LISTENING     22445    1/init              /run/snapd.socket
+root@host:~# ps axf | grep smbd
+13405 pts/3    S+     0:00  |                   \_ grep --color=auto smbd
+13236 ?        Ss     0:00      \_ /usr/sbin/smbd -D
+13239 ?        S      0:00          \_ /usr/sbin/smbd -D
+13244 ?        S      0:00          \_ /usr/sbin/smbd -D
+13390 ?        Ss     0:00 /usr/sbin/smbd -D
+13391 ?        S      0:00  \_ /usr/sbin/smbd -D
+13393 ?        S      0:00  \_ /usr/sbin/smbd -D
+13395 ?        S      0:00  \_ /usr/sbin/smbd -D
+```
+
+
+If you run samba server in both lxd-containers and the lxd-host then you may run to smb starting problems in host
+
+```
+Edit file /etc/init.d/smbd
+# remove    if ! start-stop-daemon --start --quiet --oknodo --exec /usr/sbin/smbd -- -D; then
+# add       if ! start-stop-daemon --start --quiet --oknodo --pidfile /var/run/samba/smbd.pid --exec /usr/sbin/smbd -- -D; then
+```
+
+Verify with
+
+```
+root@host:~# ps -ef | grep smbd
+100000   13236 12434  0 09:29 ?        00:00:00 /usr/sbin/smbd -D
+100000   13239 13236  0 09:29 ?        00:00:00 /usr/sbin/smbd -D
+100000   13244 13236  0 09:29 ?        00:00:00 /usr/sbin/smbd -D
+root     13390     1  0 09:30 ?        00:00:00 /usr/sbin/smbd -D
+root     13391 13390  0 09:30 ?        00:00:00 /usr/sbin/smbd -D
+root     13393 13390  0 09:30 ?        00:00:00 /usr/sbin/smbd -D
+root     13395 13390  0 09:30 ?        00:00:00 /usr/sbin/smbd -D
+root     13435 11720  0 09:35 pts/3    00:00:00 grep --color=auto smbd
+```
+
+
 # annotate images
 https://www.getcloudapp.com/apps
 
@@ -147,54 +204,84 @@ net.ipv4.ip_forward=1
 Run `sudo sysctl -p` or `reboot`. Now change the adapt ths file describes the network `/etc/network/interfaces` in host for static to bridge `br0` changes
 
 ```
-#This file is /etc/network/interfaces
+root@mg50:~# cat /etc/network/interfaces
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
 source /etc/network/interfaces.d/*
 
 # The loopback network interface
 auto lo
 iface lo inet loopback
 
-# The primary network interface
 auto br0
 iface br0 inet static
-	address 1.2.3.111
-	netmask 255.255.255.240
-	network 1.2.3.112
-	broadcast 1.2.3.127
-	gateway 1.2.3.126
-	# dns-* options are implemented by the resolvconf package, if installed
-	dns-nameservers 8.8.8.8 4.4.4.4
+   address bare.metal.host.ip
+   netmask 255.255.255.224
+   network a.b.c.d
+   gateway a.b.c.d
+   dns-nameservers a.b.c.d
+   dns-search host.domain
+   bridge_ports eno1
 
-##  bridge options
-bridge_ports enp2s0  
-## auto enp2s0
-iface enp2s0 inet manual
+
+auto br1
+iface br1 inet manual
+    bridge_ports enxlkldkflkdkfj
+
 ```
-Verify before restarting network as you lose connection `sudo service networking restart`. If everything was OK, you will see `br0´, `eth0 or enp2s0` and `lo` when you run `ifconfig` like this (redacted partially)
+
+
+Verify before restarting network as you lose connection 
+
+```
+ip addr flush eno1 &&  ip addr flush enxlkldkflkdkfj  && systemctl restart networking.service
+```
+
+
+
+If everything was OK, you will see `br0´, `eth0 or enp2s0` and `lo` when you run `ifconfig` like this (redacted partially)
+
 ```
 br0       Link encap:Ethernet  HWaddr 00:
           collisions:0 txqueuelen:1000 
           RX bytes:417554630 (417.5 MB)  TX bytes:8047958 (8.0 MB)
 
-enp2s0    Link encap:Ethernet  HWaddr 00:
+br1    Link encap:Ethernet  HWaddr 00:
           RX bytes:744425912 (744.4 MB)  TX bytes:14523858 (14.5 MB)
+
+
+eno1      Link encap:Ethernet  HWaddr d4::::::
+
+
+enx0022cf932bbc Link encap:Ethernet  HWaddr 00:2::::::  
+
 
 lo        Link encap:Local Loopback  
           inet addr:127.0.0.1  Mask:255.0.0.0
           RX bytes:11840 (11.8 KB)  TX bytes:11840 (11.8 KB)
 ```
+
 IIRC, `lxc profile show default ` shows
-```
-config: {}
+```lxc profile show default
+config:
+  environment.http_proxy: ""
+  user.network_mode: ""
 description: Default LXD profile
 devices:
   eth0:
     name: eth0
     nictype: bridged
-    parent: br0
+    parent: br1
     type: nic
+  root:
+    path: /
+    pool: default
+    type: disk
 name: default
-used_by: []
+used_by:
+- /1.0/containers/climbing-crow
+
 ```
 Time to create, launch containers. The first time it takes long to download, may be unzip and launch containers.
 ```sudo lxc launch ubuntu:xenial host222xenial
