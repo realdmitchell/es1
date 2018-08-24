@@ -36,15 +36,14 @@ If you run samba server in both lxd-containers and the lxd-host then you may run
 Edit file `/etc/init.d/smbd`
 ```
 diff --git a/smbd b/smbd
-index b6ec38f..d4af530 100755
+index b6ec38f..1e92d8e 100755
 --- a/smbd
 +++ b/smbd
-@@ -37,7 +37,8 @@ case $1 in
+@@ -37,7 +37,7 @@ case $1 in
       # Make sure we have our PIDDIR, even if it's on a tmpfs
       install -o root -g root -m 755 -d $PIDDIR
 
 -     if ! start-stop-daemon --start --quiet --oknodo --exec /usr/sbin/smbd -- -D; then
-+#    if ! start-stop-daemon --start --quiet --oknodo --exec /usr/sbin/smbd -- -D; then
 +      if ! start-stop-daemon --start --quiet --oknodo --pidfile /var/run/samba/smbd.pid --exec /usr/sbin/smbd -- -D; then
 
          log_end_msg 1
