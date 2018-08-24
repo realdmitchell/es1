@@ -32,12 +32,24 @@ root@host:~# ps axf | grep smbd
 ```
 
 
-If you run samba server in both lxd-containers and the lxd-host then you may run to smb starting problems in host
-
+If you run samba server in both lxd-containers and the lxd-host then you may run to smb starting problems in host.
+Edit file `/etc/init.d/smbd`
 ```
-Edit file /etc/init.d/smbd
-# remove    if ! start-stop-daemon --start --quiet --oknodo --exec /usr/sbin/smbd -- -D; then
-# add       if ! start-stop-daemon --start --quiet --oknodo --pidfile /var/run/samba/smbd.pid --exec /usr/sbin/smbd -- -D; then
+diff --git a/smbd b/smbd
+index b6ec38f..d4af530 100755
+--- a/smbd
++++ b/smbd
+@@ -37,7 +37,8 @@ case $1 in
+      # Make sure we have our PIDDIR, even if it's on a tmpfs
+      install -o root -g root -m 755 -d $PIDDIR
+
+-     if ! start-stop-daemon --start --quiet --oknodo --exec /usr/sbin/smbd -- -D; then
++#    if ! start-stop-daemon --start --quiet --oknodo --exec /usr/sbin/smbd -- -D; then
++      if ! start-stop-daemon --start --quiet --oknodo --pidfile /var/run/samba/smbd.pid --exec /usr/sbin/smbd -- -D; then
+
+         log_end_msg 1
+         exit 1
+
 ```
 
 Verify with
