@@ -1,4 +1,4 @@
-#Samba
+# Samba
 
 ```
 root@host:~# service smbd restart
