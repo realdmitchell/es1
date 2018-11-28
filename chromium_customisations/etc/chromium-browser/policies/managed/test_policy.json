@@ -115,5 +115,5 @@
         "EnableMediaRouter": false,
         "NativeMessagingUserLevelHosts": false,
         "DefaultWebBluetoothGuardSetting": 2,
-        "ExtensionInstallForcelist": ["geddoclleiomckbhadiaipdggiiccfje;https://clients2.google.com/service/update2/crx","cjpalhdlnbpafiamejdnhcphjbkeiagm;https://clients2.google.com/service/update2/crx","kljjfejkagofbgklifblndjelgabcmig;https://clients2.google.com/service/update2/crx"]
+        "ExtensionInstallForcelist": ["geddoclleiomckbhadiaipdggiiccfje;https://clients2.google.com/service/update2/crx","cjpalhdlnbpafiamejdnhcphjbkeiagm;https://clients2.google.com/service/update2/crx"]
 }
