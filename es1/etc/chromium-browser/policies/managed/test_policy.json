@@ -3,9 +3,6 @@
         "DefaultNotificationsSetting": 2,
         "DefaultGeolocationSetting": 2,
         "AutoplayAllowed": false,
-        "SigninAllowed": false,
-        "RestrictSigninToPattern": "^$",
-        "SyncDisabled": true,
         "CloudPrintProxyEnabled": false,
         "CloudPrintSubmitEnabled": false,
         "SpellCheckServiceEnabled": false,
@@ -16,14 +13,9 @@
         "MetricsReportingEnabled": false,
         "SafeBrowsingEnabled": false,
         "SafeBrowsingExtendedReportingOptInAllowed": false,
-        "DefaultBrowserSettingEnabled": false,
+        "BlockThirdPartyCookies": true,
         "SavingBrowserHistoryDisabled": true,
-        "DefaultSearchProviderEnabled": true,
-        "DefaultSearchProviderName": "DuckDuckGo",
-        "DefaultSearchProviderSearchURL": "https://duckduckgo.com/?q={searchTerms}&kp=-1&kd=1&kl=uk-en",
-        "DefaultSearchProviderIconURL": "https://duckduckgo.com/favicon.ico",
         "URLBlacklist": ["facebook.com", "https://www.facebook.com"],
-        "CookiesAllowedForUrls": ["[*.]benchling.com", "[*.]bnchcdn.com", "[*.]intercom.io"],
         "CookiesBlockedForUrls": [
                 "[*.]distractify.com",
                 "[*.]buzzfeed.com",
@@ -82,6 +74,7 @@
                 "[*.]knowable.com",
                 "[*.]lifehacker.com",
                 "[*.]matadornetwork.com",
+                "[*.]medium.com",
                 "[*.]metrolyrics.com",
                 "[*.]mymodernmet.com",
                 "[*.]nytimes.com",
@@ -115,5 +108,5 @@
         "EnableMediaRouter": false,
         "NativeMessagingUserLevelHosts": false,
         "DefaultWebBluetoothGuardSetting": 2,
-        "ExtensionInstallForcelist": ["geddoclleiomckbhadiaipdggiiccfje;https://clients2.google.com/service/update2/crx","cjpalhdlnbpafiamejdnhcphjbkeiagm;https://clients2.google.com/service/update2/crx"]
+        "ExtensionInstallForcelist": ["bjilljlpencdcpihofiobpnfgcakfdbe;https://clients2.google.com/service/update2/crx","geddoclleiomckbhadiaipdggiiccfje;https://clients2.google.com/service/update2/crx","cjpalhdlnbpafiamejdnhcphjbkeiagm;https://clients2.google.com/service/update2/crx"]
 }
