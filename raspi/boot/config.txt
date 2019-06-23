@@ -1,8 +1,10 @@
 # For more options and information see
-# http://www.raspberrypi.org/documentation/configuration/config-txt.md
+# http://rpf.io/configtxtreadme
 # Some settings may impact device functionality. See link above for details
 
 gpu_mem=256
+#line changed to below on march 1 2018
+#gpu_mem=320
 
 #Setting this to 1 pretends that CEC is not supported at all by the TV. No CEC functions will be supported.
 hdmi_ignore_cec=1
@@ -24,7 +26,8 @@ hdmi_ignore_cec_init=1
 #overscan_top=16
 #overscan_bottom=16
 
-max_usb_current=1
+# ignored for rpi3
+#max_usb_current=1
 
 # uncomment to force a console size. By default it will be display's size minus
 # overscan.
@@ -70,3 +73,10 @@ dtparam=audio=on
 
 # NOOBS Auto-generated Settings:
 hdmi_force_hotplug=1
+
+
+#https://www.raspberrypi.org/forums/viewtopic.php?f=29&t=44177
+program_usb_timeout=1
+
+#https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/msd.md
+program_usb_boot_mode=1
