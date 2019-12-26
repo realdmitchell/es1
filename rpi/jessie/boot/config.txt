@@ -80,3 +80,7 @@ program_usb_timeout=1
 
 #https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/msd.md
 program_usb_boot_mode=1
+
+
+disable_splash=1
+
