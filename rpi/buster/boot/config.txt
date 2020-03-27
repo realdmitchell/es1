@@ -2,6 +2,8 @@
 # http://rpf.io/configtxt
 # Some settings may impact device functionality. See link above for details
 
+gpu_mem=256
+
 # uncomment if you get no picture on HDMI for a default "safe" mode
 #hdmi_safe=1
 
@@ -23,16 +25,17 @@
 
 # uncomment if hdmi display is not detected and composite is being output
 #hdmi_force_hotplug=1
-hdmi_ignore_cec=1
-hdmi_ignore_cec_init=1
-
 
 # uncomment to force a specific HDMI mode (this will force VGA)
 #hdmi_group=1
 #hdmi_mode=1
+hdmi_ignore_cec=1
+hdmi_ignore_cec_init=1
 hdmi_group=2
 hdmi_mode=39
 hdmi_force_hotplug=1
+
+
 
 
 # uncomment to force a HDMI mode rather than DVI. This can make audio work in
@@ -55,8 +58,10 @@ hdmi_force_hotplug=1
 #dtparam=spi=on
 
 # Uncomment this to enable infrared communication.
-dtoverlay=gpio-ir,gpio_pin=18
+#dtoverlay=gpio-ir,gpio_pin=17
 #dtoverlay=gpio-ir-tx,gpio_pin=18
+dtoverlay=gpio-ir,gpio_pin=18
+
 
 # Additional overlays and parameters are documented /boot/overlays/README
 
