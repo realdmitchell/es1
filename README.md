@@ -1,3 +1,15 @@
+# encfs
+
+```
+sudo apt install encfs
+encfs ~/.encrypted ~/visible
+fusermount -u ~/visible
+
+```
+
+
+
+
 # Samba
 
 ```
