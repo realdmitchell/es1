@@ -1,10 +1,15 @@
 # Nokia 2.2
 https://en.wikipedia.org/wiki/Nokia_2.2
 
-A decent phone with 
+# Good
+ 
   - Android one
   -  removable 3000 mAh battery
   -  microUSB port.
+
+# Bad
+
+  - You will not get any notifications for user installed apps :-(
 
 # Forums
 https://community.phones.nokia.com/categories/nokia-2-2
@@ -20,7 +25,15 @@ https://community.phones.nokia.com/discussion/57250/guide-to-enable-3-button-nav
   - set quickstep as default launcher
   - enable gesture navigation instead of 2 button
   - install another launcher like lawnchair and enable it as default.
-  - The next command may be not needed.
+
+
+
+### Remove crap
+
+Taken from  XDA link https://forum.xda-developers.com/nokia-7-plus/how-to/stock-disabling-crap-device-ota-t3906929
+
+Run this inside ```adb shell``` after enabling developer in settings.
+
 ```sh
 adb shell  pm disable-user --user 0 com.mediatek.ims
 adb shell  pm disable-user --user 0 com.android.cts.priv.ctsshim
@@ -94,19 +107,6 @@ adb shell  pm disable-user --user 0 com.mediatek.dataprotection
 adb shell  pm disable-user --user 0 com.google.android.inputmethod.latin
 adb shell  pm disable-user --user 0 com.google.android.apps.restore
 adb shell  pm disable-user --user 0 com.google.android.overlay.searchlauncherconfig
-```
-
-
-
-
-### Remove crap
-
-Taken from  XDA link https://forum.xda-developers.com/nokia-7-plus/how-to/stock-disabling-crap-device-ota-t3906929
-
-Run this inside ```adb shell``` after enabling developer in settings.
-
-```sh
-
 ```
 
 # Warning
