@@ -17,9 +17,9 @@ menuentry 'SystemRescueCD (64-bit) ' {
   initrd (loop)/sysresccd/boot/x86_64/sysresccd.img
 }
 menuentry "lubuntu 19.10" {
-   set root=(hd0,msdos3)
+   set root=(hd0,msdos2)
    set isofile="/lubuntu-19.10-desktop-amd64.iso"
-   loopback loop (hd0,msdos3)$isofile
+   loopback loop (hd0,msdos2)$isofile
    linux (loop)/casper/vmlinuz boot=casper iso-scan/filename=$isofile noprompt noeject
    initrd (loop)/casper/initrd
 }
