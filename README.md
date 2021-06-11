@@ -5,8 +5,14 @@
 # Sony SRS XB20
 With the speaker turned on, press and hold the – (volume) button and the  Power button at the same time for more than 5 seconds until the speaker turns off.
 
+# RSS podcasts
 
+```
+wget   https://example.com/something.rss
+xmlstarlet sel -t -v "//media:content/@url"  something.rss| grep mp3  |  sed -e 's/?.*//' > list
+wget -i list
 
+```
 
 # encfs
 
