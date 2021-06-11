@@ -10,7 +10,7 @@ With the speaker turned on, press and hold the – (volume) button and the  Powe
 ```
 wget   https://example.com/something.rss
 xmlstarlet sel -t -v "//media:content/@url"  something.rss| grep mp3  |  sed -e 's/?.*//' > list
-wget -i list
+wget --random-wait --wait 120 --no-clobber -i list
 
 ```
 
